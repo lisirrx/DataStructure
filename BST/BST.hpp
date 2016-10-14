@@ -10,19 +10,37 @@
 template<typename KEY, typename VALUE>
 class BST_node {
     friend class BST;
-
 public:
-    BST_node() : __parent(nullptr), __left_child(nullptr), __right_child(nullptr);
-
-    BST_node(KEY _key) : 
-
+    BST_node(KEY _Key, VALUE _value) : __key(_Key), __value(_value){};
+    BST_node(const BST_node& _n);
+    BST_node &operator=(const BST_node& _n);
 protected:
-    BST_node *__parent;
-    BST_node *__left_child;
-    BST_node *__right_child;
+    BST_node *__parent = nullptr;
+    BST_node *__left_child = nullptr;
+    BST_node *__right_child = nullptr;
     KEY __key;
     VALUE __value;
 };
+
+BST_node::BST_node(const BST_node& _n) {
+    __parent = _n.__parent;
+    __left_child = _n.__left_child;
+    __right_child = _n.__right_child;
+    __key = _n.__key;
+    __value = _n.__value;
+}
+
+BST_node& BST_node::operator=(const BST_node& _n) {
+
+    __parent = _n.__parent;
+    __left_child = _n.__left_child;
+    __right_child = _n.__right_child;
+    __key = _n.__key;
+    __value = _n.__value;
+
+    return *this;
+}
+
 
 template<typename KEY, typename VALUE>
 class BST {
@@ -52,7 +70,6 @@ protected:
 
 };
 
-template<typename KEY, typename VALUE>
 
 
 #endif //BST_BST_HPP
