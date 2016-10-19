@@ -16,7 +16,7 @@ public:
 	};
 
 	Entry(int _id, std::string _name, Gender _gender, int _age, std::string _type) :
-			__id(_id), __name(_name), __gender(_gender), __type(_type) { }
+			__id(_id), __name(_name), __gender(_gender), __age(_age), __type(_type) { }
 	Entry(int _id):__id(_id){ }
 
 	bool operator==(const Entry& _t) const {
@@ -26,6 +26,7 @@ public:
 	~Entry(){};
 
 protected:
+
 	int __id;
 	std::string __name;
 	Gender __gender;
