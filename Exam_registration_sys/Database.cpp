@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include "Database.hpp"
+#include <algorithm>
 
 Database::Database() { }
 
@@ -10,7 +11,6 @@ Database::~Database() { }
 
 void Database::insert_entry(Entry _entry) {
 	entry_list.push_back(_entry);
-
 }
 
 void Database::delete_entry(int _id) {
@@ -42,7 +42,8 @@ Entry &Database::search(int _id) {
 
 void Database::show() {
 	for(auto &item : entry_list) {
-		std::cout << item.__id << "\t" << item.__name << "\t" << item.__gender << "\t"
-		<< item.__age << "\t" << item.__type << std::endl; //TODO: output
+		std::cout << item.__id << "\t" << item.__name << "\t";
+		std::cout << (item.__gender == Entry::Gender::Female) ? "女" : "男";
+		std::cout << "\t" << item.__age << "\t" << item.__type << std::endl; //TODO: output
 	}
 }

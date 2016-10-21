@@ -21,8 +21,6 @@ public:
 	Entry &search(int _id);
 	void show();
 
-
-
 protected:
 	std::list<Entry> entry_list;
 };

@@ -46,33 +46,33 @@ namespace lisirrx {
 }
 
 template <typename ValueType>
-lisirrx::List_node::List_node(const ValueType& _item) {
+lisirrx::List_node<ValueType>::List_node(const ValueType& _item) {
 	__item = _item;
 }
 
 template <typename ValueType>
-lisirrx::List_node::List_node(const List_node& _node){
+lisirrx::List_node<ValueType>::List_node(const List_node& _node){
 	__item = _node.__item;
 	__pre = _node.__pre;
 	__nxt = _node.__nxt;
 }
 
 template <typename ValueType>
-List_node& lisirrx::List_node::operator=(const List_node &_node) {
+lisirrx::List_node<ValueType>& lisirrx::List_node<ValueType>::operator=(const List_node &_node) {
 	__item = _node.__item;
 	__pre = _node.__pre;
 	__nxt = _node.__nxt;
 }
 
 template <typename ValueType>
-bool lisirrx::List_node::operator==(const List_node& _node) const {
+bool lisirrx::List_node<ValueType>::operator==(const List_node& _node) const {
 	return __item == _node.__item;
 }
 
-
-lisirrx::List::List() {
-	List_node head;
-	List_node tail;
+template <typename ValueType>
+lisirrx::List<ValueType>::List() {
+	List_node<ValueType> *head = new(List_node<ValueType>);
+	List_node<ValueType> *tail = new(List_node<ValueType>);
 	__head = std::make_shared(head);
 	__tail = std::make_shared(tail);
 	__tail = __head->__nxt;

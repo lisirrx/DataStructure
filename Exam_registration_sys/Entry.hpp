@@ -19,11 +19,13 @@ public:
 			__id(_id), __name(_name), __gender(_gender), __age(_age), __type(_type) { }
 	Entry(int _id):__id(_id){ }
 
-	bool operator==(const Entry& _t) const {
-		return __id == _t.__id;
-	}
+	bool operator==(const Entry& _t) const;
+    bool operator<(const Entry& _t) const;
+    bool operator>(const Entry& _t) const;
 
-	~Entry(){};
+    Gender gender() const;
+
+    ~Entry(){};
 
 protected:
 

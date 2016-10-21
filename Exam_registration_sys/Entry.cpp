@@ -3,3 +3,18 @@
 //
 
 #include "Entry.hpp"
+
+bool Entry::operator==(const Entry& _t) const {
+    return __id == _t.__id;
+}
+
+bool Entry::operator<(const Entry& _t) const{
+    return __id < _t.__id;
+}
+bool Entry::operator>(const Entry& _t) const {
+    return __id > _t.__id;
+}
+
+Entry::Gender Entry::gender() const{
+    return __gender;
+}
