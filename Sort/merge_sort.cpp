@@ -4,20 +4,17 @@
 
 #include "Sort_functions.hpp"
 
-std::vector<int> merge(std::vector<int> _left, std::vector<int> _right){
-	std::vector<int> array;
-
-	size_t lenth_left = _left.size();
-	size_t lenth_right = _right.size();
+std::vector <int> merge(std::vector <int> _left, std::vector <int> _right) {
+	std::vector <int> array;
 
 	_left.push_back(INT_MAX);
 	_right.push_back(INT_MAX);
 
-	for(auto i = _left.begin(), j = _right.begin(); i < _left.end() || j < _right.end();){
-		if(*i < *j){
+	for(auto i = _left.begin(), j = _right.begin(); i < _left.end() - 1 || j < _right.end() - 1;) {
+		if(*i < *j) {
 			array.push_back(*i);
 			i++;
-		} else{
+		} else {
 			array.push_back(*j);
 			j++;
 		}
@@ -25,6 +22,17 @@ std::vector<int> merge(std::vector<int> _left, std::vector<int> _right){
 	return array;
 }
 
-void merge_sort(std::vector<int> &_array){
-    
+void merge_sort(std::vector<int> &_array) {
+
+	std::vector <int> left(_array.begin(), _array.begin() + (_array.end() - _array.begin()) / 2);
+	std::vector <int> right(_array.begin() + (_array.end() - _array.begin()) / 2, _array.end());
+
+	if(left.size() > 1) {
+		merge_sort(left);
+	}
+	if(right.size() > 1) {
+		merge_sort(right);
+	}
+
+	_array = merge(left, right);
 }
