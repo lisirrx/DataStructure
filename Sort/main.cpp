@@ -4,7 +4,7 @@
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
-    std::vector<int> a = {1, 4,5,3,5,6,635,9,7,0};
+    std::vector<int> a = {4,5,2,1,3,5,6,635,9,7};
 
 	bubble_sort(a);
 
