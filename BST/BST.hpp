@@ -5,7 +5,8 @@
 #ifndef BST_BST_HPP
 #define BST_BST_HPP
 
-#include <ctime>
+#include <memory>
+
 
 template <typename KEY, typename VALUE>
 class BST_node {
@@ -27,6 +28,7 @@ public:
 	bool operator==(const BST_node &_n);
 
 protected:
+
 	BST_node *__parent = nullptr;
 	BST_node *__left_child = nullptr;
 	BST_node *__right_child = nullptr;

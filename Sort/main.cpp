@@ -15,25 +15,26 @@ int main() {
     for(int i = 0; i < 100000; ++ i){
         a.push_back(dis(engine));
     }
-    std::vector<int> b = a;
+//    std::vector<int> b = a;
+//
+//    int t = clock();
+//    merge_sort(a);
+//    int t2 = clock();
+//    std::cout << t2 - t << std::endl;
+//
+//    t = clock();
+//    insertion_sort(b);
+//    t2 = clock();
+//
+//    std::cout << t2 - t << std::endl;
+//
+//    t = clock();
+//    bubble_sort(b);
+//    t2 = clock();
+//
+//    std::cout << t2 - t << std::endl;
 
-    int t = clock();
-    merge_sort(a);
-    int t2 = clock();
-    std::cout << t2 - t << std::endl;
-
-    t = clock();
-    insertion_sort(b);
-    t2 = clock();
-
-    std::cout << t2 - t << std::endl;
-
-    t = clock();
-    bubble_sort(b);
-    t2 = clock();
-
-    std::cout << t2 - t << std::endl;
-
+    radix_sort(a);
 
 
     return 0;
