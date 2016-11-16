@@ -14,8 +14,8 @@ class List_node{
 
 public:
 	typedef std::shared_ptr<List_node<ValueType>> Node_ptr;
-	Node_ptr __pre;
-	Node_ptr __nxt;
+	Node_ptr __pre_ptr;
+	Node_ptr __nxt_ptr;
 	ValueType __item;
 	List_node();
 	List_node(const ValueType& _item);
@@ -29,8 +29,8 @@ public:
 
 template <typename ValueType>
 List_node<ValueType>::List_node() {
-	__pre = nullptr;
-	__nxt = nullptr;
+	__pre_ptr = nullptr;
+	__nxt_ptr = nullptr;
 	std::cout << "List node : Default" << std::endl;
 }
 
@@ -43,16 +43,16 @@ List_node<ValueType>::List_node(const ValueType& _item) {
 template <typename ValueType>
 List_node<ValueType>::List_node(const List_node& _node){
 	__item = _node.__item;
-	__pre = _node.__pre;
-	__nxt = _node.__nxt;
+	__pre_ptr = _node.__pre_ptr;
+	__nxt_ptr = _node.__nxt_ptr;
 	std::cout << "List node : Copy" << std::endl;
 }
 
 template <typename ValueType>
 List_node<ValueType>& List_node<ValueType>::operator=(const List_node &_node) {
 	__item = _node.__item;
-	__pre = _node.__pre;
-	__nxt = _node.__nxt;
+	__pre_ptr = _node.__pre_ptr;
+	__nxt_ptr = _node.__nxt_ptr;
 }
 
 template <typename ValueType>
@@ -94,31 +94,31 @@ List<ValueType>::List() {
 	__head = std::make_shared<List_node<ValueType>>();
 	__tail = std::make_shared<List_node<ValueType>>();
 
-	__head->__nxt = __tail;
-	__head->__pre = nullptr;
+	__head->__nxt_ptr = __tail;
+	__head->__pre_ptr = nullptr;
 
-	__tail->__nxt = nullptr;
-	__tail->__pre = __head;
+	__tail->__nxt_ptr = nullptr;
+	__tail->__pre_ptr = __head;
 }
 
 
 template <typename ValueType>
 void List<ValueType>::push_back(const ValueType &_item) {
 	auto nodde_ptr = std::make_shared<List_node<ValueType>>(_item);
-	__tail->__pre->__nxt = nodde_ptr;
+	__tail->__pre_ptr->__nxt_ptr = nodde_ptr;
 
-	nodde_ptr->__nxt = __tail;
-	nodde_ptr->__pre = __tail->__pre;
-	__tail->__pre = nodde_ptr;
+	nodde_ptr->__nxt_ptr = __tail;
+	nodde_ptr->__pre_ptr = __tail->__pre_ptr;
+	__tail->__pre_ptr = nodde_ptr;
 
 }
 
 template <typename ValueType>
 void List<ValueType>::push_back(const List_node<ValueType> &_node) {
-	_node.__pre = __tail->__pre;
-	_node.__nxt = __tail;
+	_node.__pre_ptr = __tail->__pre_ptr;
+	_node.__nxt_ptr = __tail;
 
-	__tail->__pre = std::make_shared<List_node<ValueType>>(_node);
+	__tail->__pre_ptr = std::make_shared<List_node<ValueType>>(_node);
 
 }
 
