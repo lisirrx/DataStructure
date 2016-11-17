@@ -16,9 +16,9 @@ public:
 	typedef std::shared_ptr<List_node<ValueType>> Node_ptr;
 	Node_ptr __pre_ptr;
 	Node_ptr __nxt_ptr;
-	std::unique_ptr<ValueType> __item;
+	ValueType __item;
 	List_node();
-	List_node(const ValueType& _value);
+	List_node(const ValueType& _item);
 	List_node(const List_node& _node);
 	List_node &operator=(const List_node& _node);
 	bool operator==(const List_node& _node) const;
@@ -33,13 +33,14 @@ List_node<ValueType>::List_node() {
 }
 
 template <typename ValueType>
-List_node<ValueType>::List_node(const ValueType& _value) :__item(new ValueType(_value)) {
+List_node<ValueType>::List_node(const ValueType& _item) {
+	__item = _item;
 	std::cout << "List node : By ValueType " << std::endl;
 }
 
 template <typename ValueType>
 List_node<ValueType>::List_node(const List_node& _node){
-	__item(new ValueType(*_node.__item));
+	__item = _node.__item;
 	__pre_ptr = _node.__pre_ptr;
 	__nxt_ptr = _node.__nxt_ptr;
 	std::cout << "List node : Copy" << std::endl;
@@ -47,7 +48,7 @@ List_node<ValueType>::List_node(const List_node& _node){
 
 template <typename ValueType>
 List_node<ValueType>& List_node<ValueType>::operator=(const List_node &_node) {
-	__item(new ValueType(*_node.__item));
+	__item = _node.__item;
 	__pre_ptr = _node.__pre_ptr;
 	__nxt_ptr = _node.__nxt_ptr;
 }
@@ -65,12 +66,20 @@ class List {
 public:
 	typedef std::shared_ptr<List_node<ValueType>> Node_ptr;
 	List();
-	~List();
+	~List(){
 
-	void push_back(const ValueType &_value);
+		std::cout << __head.use_count() << std::endl;
+		std::cout << "List destroy" << std::endl;
+
+		while(__tail != __head) {
+			__tail->__pre_ptr = __tail;
+		}
+	};
+
+	void push_back(const ValueType &_item);
 	void push_back(const List_node<ValueType> &_node);
-//	void remove(const ValueType &_value);
-//	ValueType &search(const ValueType &_value) const;
+//	void remove(const ValueType &_item);
+//	ValueType &search(const ValueType &_item) const;
 
 	void print();
 protected:
@@ -94,15 +103,10 @@ List<ValueType>::List() {
 	__tail->__pre_ptr = __head;
 }
 
-template<typename ValueType>
-List<ValueType>::~List(){
-
-}
-
 
 template <typename ValueType>
-void List<ValueType>::push_back(const ValueType &_value) {
-	auto nodde_ptr = std::make_shared<List_node<ValueType>>(_value);
+void List<ValueType>::push_back(const ValueType &_item) {
+	auto nodde_ptr = std::make_shared<List_node<ValueType>>(_item);
 	__tail->__pre_ptr->__nxt_ptr = nodde_ptr;
 
 	nodde_ptr->__nxt_ptr = __tail;
