@@ -7,13 +7,14 @@
 
 #include <memory>
 #include <iostream>
+#include <lber.h>
 
 
 template<typename ValueType>
 class List_node{
 
 public:
-	typedef std::shared_ptr<List_node<ValueType>> Node_ptr;
+	typedef List_node<ValueType>* Node_ptr;
 	Node_ptr __pre_ptr;
 	Node_ptr __nxt_ptr;
 	ValueType __item;
@@ -22,7 +23,9 @@ public:
 	List_node(const List_node& _node);
 	List_node &operator=(const List_node& _node);
 	bool operator==(const List_node& _node) const;
-	
+	~List_node(){
+		std::cout << " List Node destory" << std::endl;
+	};
 };
 
 template <typename ValueType>
@@ -59,25 +62,28 @@ bool List_node<ValueType>::operator==(const List_node& _node) const {
 }
 
 
+
 template<typename ValueType>
 class List {
 
 
 public:
-	typedef std::shared_ptr<List_node<ValueType>> Node_ptr;
+	typedef List_node<ValueType>* Node_ptr;
 	List();
 	~List(){
-
-		std::cout << __head.use_count() << std::endl;
 		std::cout << "List destroy" << std::endl;
 
-		while(__tail != __head) {
-			__tail->__pre_ptr = __tail;
+		while(__tail != __head){
+			auto t  = __tail;
+			__tail = __tail->__pre_ptr;
+			delete t;
 		}
+
+		delete __head;
 	};
 
 	void push_back(const ValueType &_item);
-	void push_back(const List_node<ValueType> &_node);
+	void push_back(List_node<ValueType>& _node);
 //	void remove(const ValueType &_item);
 //	ValueType &search(const ValueType &_item) const;
 
@@ -85,6 +91,7 @@ public:
 protected:
 	Node_ptr __head;
 	Node_ptr __tail;
+	Node_ptr __curr;
 
 };
 
@@ -93,20 +100,20 @@ protected:
 
 template <typename ValueType>
 List<ValueType>::List() {
-	__head = std::make_shared<List_node<ValueType>>();
-	__tail = std::make_shared<List_node<ValueType>>();
-
+	__head = new List_node<ValueType>();
+	__tail = new List_node<ValueType>();
+	__curr = __head;
 	__head->__nxt_ptr = __tail;
-	__head->__pre_ptr = nullptr;
+	__head->__pre_ptr = __tail;
 
-	__tail->__nxt_ptr = nullptr;
+	__tail->__nxt_ptr = __head;
 	__tail->__pre_ptr = __head;
 }
 
 
 template <typename ValueType>
 void List<ValueType>::push_back(const ValueType &_item) {
-	auto nodde_ptr = std::make_shared<List_node<ValueType>>(_item);
+	auto nodde_ptr = new List_node<ValueType>(_item);
 	__tail->__pre_ptr->__nxt_ptr = nodde_ptr;
 
 	nodde_ptr->__nxt_ptr = __tail;
@@ -116,15 +123,20 @@ void List<ValueType>::push_back(const ValueType &_item) {
 }
 
 template <typename ValueType>
-void List<ValueType>::push_back(const List_node<ValueType> &_node) {
+void List<ValueType>::push_back(List_node<ValueType> &_node) {
 	_node.__pre_ptr = __tail->__pre_ptr;
 	_node.__nxt_ptr = __tail;
 
-	__tail->__pre_ptr = std::make_shared<List_node<ValueType>>(_node);
+	__tail->__pre_ptr = &_node;
 
 }
 
-
+template <typename ValueType>
+void List<ValueType>::print() {
+	while(__curr != __tail){
+		std::cout << __curr->__item << std::endl;
+	}
+}
 
 
 
