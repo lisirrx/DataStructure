@@ -2,6 +2,8 @@
 #include <vector>
 #include <memory>
 
+#include <list>
+
 #include "StrBlob.h"
 
 using namespace std;

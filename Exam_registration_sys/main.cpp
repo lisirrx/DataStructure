@@ -6,14 +6,11 @@
 
 int main() {
 
-	
-	while (1) {
-		List<int> a;
+
+	stl::list <int> a;
 		a.push_back(1);
 		a.push_back(2);
 		a.push_back(3);
-	}
-
 
 
 }
