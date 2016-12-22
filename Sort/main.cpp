@@ -12,30 +12,57 @@ int main() {
 
 
     std::vector<int> a;
-    for(int i = 0; i < 100000; ++ i){
-        a.push_back(dis(engine));
-    }
-//    std::vector<int> b = a;
-//
-//    int t = clock();
-//    merge_sort(a);
-//    int t2 = clock();
-//    std::cout << t2 - t << std::endl;
-//
-//    t = clock();
-//    insertion_sort(b);
-//    t2 = clock();
-//
-//    std::cout << t2 - t << std::endl;
-//
-//    t = clock();
-//    bubble_sort(b);
-//    t2 = clock();
-//
-//    std::cout << t2 - t << std::endl;
 
-    radix_sort(a);
+	for(int j = 1000; j < 0x3f3f3f; j *= 2) {
 
+		std::cout << "The input scale is :" << j << std::endl;
+
+		for(int i = 0; i < j; ++i) {
+			a.push_back(dis(engine));
+		}
+		std::vector <int> b = a;
+
+		int t = clock();
+		merge_sort(b);
+		int t2 = clock();
+		std::cout << "merge sort  : "<<t2 - t << std::endl;
+
+		b = a;
+
+		t = clock();
+
+		insertion_sort(b);
+		t2 = clock();
+
+		std::cout << "insert sort : " <<t2 - t << std::endl;
+
+//		b = a;
+//		t = clock();
+//		bubble_sort(b);
+//		t2 = clock();
+//
+//		std::cout <<"bubble sort : " <<  t2 - t << std::endl;
+
+		b = a;
+		t = clock();
+
+		quick_sort(b, 0, b.size() - 1);
+
+		t2 = clock();
+
+		std::cout <<"quick sort  : " << t2 - t << std::endl;
+
+		b = a;
+		t = clock();
+
+		std::sort(b.begin(), b.end());
+
+		t2 = clock();
+
+		std::cout <<"std   sort  : " << t2 - t << std::endl;
+
+		std::cout << "------------"<< std::endl;
+	}
 
     return 0;
 }

@@ -4,7 +4,12 @@
 
 
 #include <vector>
+#include <iostream>
+#include <png.h>
+
 #include "Sort_functions.hpp"
+
+
 
 void insertion_sort(std::vector<int> &_array){
 
@@ -12,6 +17,7 @@ void insertion_sort(std::vector<int> &_array){
             if(_array.at(i) < _array.at(i - 1)){
                 int temp = _array.at(i);
                 int j;
+
                 for(j = i; j > 0 && _array.at(j - 1) > temp; --j){
                     _array.at(j) = _array.at(j -1);
             }
