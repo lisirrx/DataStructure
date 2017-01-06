@@ -4,13 +4,10 @@
 #include "list.hpp"
 
 
+using namespace std;
+
+
 int main() {
-
-
-	stl::list <int> a;
-		a.push_back(1);
-		a.push_back(2);
-		a.push_back(3);
-
-
+	Database database;
+	database.event_loop(cin);   // create a database and do the event loop.
 }

@@ -15,6 +15,6 @@ bool Entry::operator>(const Entry& _t) const {
     return __id > _t.__id;
 }
 
-Entry::Gender Entry::gender() const{
+Entry::Gender Entry::get_gender() const{
     return __gender;
 }

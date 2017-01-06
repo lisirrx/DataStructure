@@ -29,42 +29,6 @@ const int node::MAX = 0x3f3f3f;
 node::Type type[4] = {node::ROAD,  node::WALL, node::ENTER, node::EXPORT };
 
 
-
-
-//bool dfs(vector<vector<int>> &map, int row, int col){
-//	int d[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-//
-//	if(map[row][col] == 3){
-//		path.push_back(node(row, col));
-//		std::cout << "Found : "<< row << " "<< col << std::endl;
-//		return true;
-//	}
-//
-//	map[row][col] = -1;
-//
-//	//std::cout << row << " " << col << std::endl;
-//
-//	path.push_back(node(row, col));
-//
-//	for(int i = 0; i < 4; ++i){
-//		if(!(row + d[i][0] < map.size() && row + d[i][0] >= 0 && col + d[i][1] >= 0 && col + d[i][1] < map.size()) ||
-//				map[row + d[i][0]][col + d[i][1]] == -1 ||
-//		        map[row + d[i][0]][col + d[i][1]] == 2){
-//			continue;
-//		}
-//		if(!dfs(map, row + d[i][0], col + d[i][1])){
-//		    map[row][col] = 0;
-//		} else {
-//			return true;
-//		}
-//
-//
-//	}
-//
-//	return false;
-//}
-
-
 node bfs(vector<vector<node>> &map, node &s){
 
 	node result = node(-1, -1, node::ERROR);
@@ -75,17 +39,6 @@ node bfs(vector<vector<node>> &map, node &s){
 	s.discover();
 
 	while(!q.empty()){
-
-//		cout << q.front().__x << " " << q.front().__y << endl;
-//
-////		cout << "color : {" << endl;
-////		for(auto item : map){
-////			for(auto item1 : item){
-////				cout << item1.__color << " ";
-////			}
-////			cout <<endl;
-////		}
-////		cout << "}" << endl;
 
 
 		node &u = q.front();
@@ -123,17 +76,19 @@ int main() {
 
 	vector<node> path;
 
+	cout << "Please input the lenth and width of the maze. Separate with a space." << endl;
 
 	int n, m;
 	cin >> n >> m;
-	cout << "------" << endl;
+
+
+
 	int x, y;
+	cout << "Please input the maze, 0 is road, 1 is wall, 2 is enter, 3 is export." << endl;
 
 
 	for(int i = 0; i < n; ++i) {
-
-		cout << " 1 hang" << endl;
-
+		cout << "The " << i + 1 << " row : ";
 		vector <node> t;
 		for(int j = 0; j < m; ++j) {
 			int temp;
@@ -147,9 +102,10 @@ int main() {
 			}
 			t.push_back(n);
 		}
-		cout << endl;
 		map.push_back(t);
 	}
+
+
 
 
 	node ex = bfs(map, map[x][y]);
@@ -164,10 +120,10 @@ int main() {
 	for(auto item = path.rbegin(); item != path.rend(); ++ item){
 
 		if(item == path.rend() - 1){
-			cout << "(" << item->__x << "," << item->__y << ")" << endl;
+			cout << "(" << item->__x + 1 << "," << item->__y + 1 << ")" << endl;
 
 		} else{
-		cout << "(" << item->__x << "," << item->__y << ") --- >";
+		cout << "(" << item->__x + 1 << "," << item->__y + 1<< ") --- >";
 		}
 	}
 
@@ -254,15 +210,15 @@ int main() {
 
 
 10 10
-0 0 0 0 0 0 0 2 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
+0 0 1 1 0 0 0 2 0 0
+0 0 1 0 0 0 0 0 0 0
+0 0 0 0 1 0 1 1 1 1
+0 0 1 1 0 0 1 0 0 0
+0 1 0 0 0 0 1 0 0 0
+0 1 0 1 1 1 0 0 0 0
+0 0 0 0 0 0 1 0 0 0
+0 0 0 0 0 0 0 1 0 0
+0 0 0 0 0 0 0 0 1 0
 0 0 0 0 0 0 0 3 0 0
 
 */

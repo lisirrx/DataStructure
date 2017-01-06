@@ -5,24 +5,28 @@
 #ifndef EXAM_REGISTRATION_SYS_DATABASE_HPP
 #define EXAM_REGISTRATION_SYS_DATABASE_HPP
 
-#include <list>
 #include "Entry.hpp"
+#include "list.hpp"
+#include <iostream>
+#include <string>
 
 class Entry;
 class Database {
 public:
 	Database();
 
+	void notify(std::string _input);
+	void event_loop(std::istream& _input);
+
 	~Database();
 
 	void insert_entry(Entry _entry);
 	void delete_entry(int _id);
-	const Entry &search(int _id) const;
 	Entry &search(int _id);
 	void show();
 
 protected:
-	std::list<Entry> entry_list;
+	tiny::list<Entry> entry_list;
 };
 
 

@@ -7,11 +7,13 @@
 
 #include <vector>
 
-void bubble_sort(std::vector<int> &_array);
-void insertion_sort(std::vector<int> &_array);
-void merge_sort(std::vector<int> &_array);
-void radix_sort(std::vector<int> &_array);
-void quick_sort(std::vector<int> &array, std::vector<int>::size_type left, std::vector<int>::size_type right);
-
+int bubble_sort(std::vector<int> &_array);
+int insertion_sort(std::vector<int> &_array);
+int merge_sort(std::vector<int> &_array);
+int radix_sort(std::vector<int> &_array);
+int quick_sort(std::vector<int> &_array);
+int heap_sort(std::vector<int> &_array);
+int select_sort(std::vector<int> &_array);
+int shell_sort(std::vector<int> &_array);
 
 #endif //SORT_SORT_FUNCTIONS_HPP

@@ -22,7 +22,7 @@ std::vector <int> merge(std::vector <int> &_left, std::vector <int> &_right) {
 	return array;
 }
 
-void merge_sort(std::vector<int> &_array) {
+void m_sort(std::vector<int> &_array) {
 
 	std::vector<int> left(_array.begin(), _array.begin() + (_array.end() - _array.begin()) / 2);
 	std::vector<int> right(_array.begin() + (_array.end() - _array.begin()) / 2, _array.end());
@@ -35,4 +35,11 @@ void merge_sort(std::vector<int> &_array) {
 	}
 
 	_array = merge(left, right);
+}
+
+int merge_sort(std::vector<int> &_array) {
+
+	m_sort(_array);
+
+	return 0;
 }

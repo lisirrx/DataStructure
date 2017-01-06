@@ -10,7 +10,7 @@
 #include <cstddef>
 #include <iostream>
 
-namespace stl {
+namespace tiny {
 	template <typename ValueType>
 	struct __list_node {
 		typedef __list_node <ValueType> *__node_pointer;
@@ -19,10 +19,9 @@ namespace stl {
 		ValueType __item;
 
 		__list_node(const ValueType &_item) : __item(_item) {
-			std::cout << " list node construct" << std::endl;
 		}
 
-		~__list_node() { std::cout << " list node destory" << std::endl; }
+		~__list_node() {  }
 	};
 
 
@@ -174,6 +173,7 @@ namespace stl {
 
 		void put_node(__node_pointer p) {
 			alloc.deallocate(p);
+			p = nullptr;
 		}
 
 		__node_pointer create_node(const ValueType &x) {
@@ -187,7 +187,16 @@ namespace stl {
 		}
 
 		list() {
+			ValueType t;
 			__node = get_node();
+			alloc.construct(__node, t);
+			__node->__ptr_nxt = __node;
+			__node->__ptr_pre = __node;
+		}
+
+		list(const ValueType &x){
+			__node = get_node();
+			alloc.construct(__node, x);
 			__node->__ptr_nxt = __node;
 			__node->__ptr_pre = __node;
 		}
@@ -219,10 +228,26 @@ namespace stl {
 			__node->__ptr_pre = __node;
 		}
 
+		void remove(ValueType x){
+			bool flag = false;
+			__node_pointer cur = __node;
+			while (cur->__ptr_nxt != __node){
+				if( cur->__item == x){
+					cur->__ptr_pre->__ptr_nxt = cur->__ptr_nxt;
+					cur->__ptr_nxt->__ptr_pre = cur->__ptr_pre;
+					flag = true;
+					break;
+				}
+				cur = cur->__ptr_nxt;
+			}
+
+			if(flag)
+				destory_node(cur);
+		}
+
 		~list() {
 			clear();
 			destory_node(__node);
-			std::cout << " list destory" << std::endl;
 		}
 	};
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 using namespace std;
 
 int cnt = 0;
@@ -33,11 +34,14 @@ void print(vector<int> rows, int d){
 
 }
 
-void N_queen(vector<int> rows, int d, int row){
+void N_queen(vector<int> rows, int d, int row, bool flag){
 	if(row == d){
 		++ cnt;
-		//cout << "find a answer : " << cnt << endl;
-		//print(rows, d);
+
+		if(flag) {
+			cout << "find a answer : " << cnt << endl;
+			print(rows, d);
+		}
 		return;
 	}
 	for(int i = 0; i < d; ++i){
@@ -46,7 +50,7 @@ void N_queen(vector<int> rows, int d, int row){
 			rows[row] = -1;
 			continue;
 		} else {
-			N_queen(rows, d, row + 1);
+			N_queen(rows, d, row + 1, flag);
 		}
 	}
 }
@@ -54,11 +58,17 @@ void N_queen(vector<int> rows, int d, int row){
 
 
 int main() {
-	int n = 8;
+	int n = 1;
+	string flag;
+	cout << "Please input the number of queens: " << endl;
+	cin >> n;
+	cout << "Print all of the result? (y/n)" << endl;
+	cin >> flag;
 
 	vector<int> rows(n, -1);
-	N_queen(rows, n, 0);
-	cout << cnt << endl;
+	N_queen(rows, n, 0, flag == "y");
+	cout <<"Result number : " << cnt << endl;
+
 
 	return 0;
 }
